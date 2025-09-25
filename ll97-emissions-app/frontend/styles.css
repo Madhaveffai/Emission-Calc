@@ -5,7 +5,7 @@
 .results-section { margin-bottom: 1.25rem; }
 .table { border-collapse: separate; border-spacing: 0; }
 .table th, .table td { border: 1px solid #374151; }
-.table th { background: #1f2937; color:#e5e7eb; font-weight: 600; }
+.table th { background: #2563eb; color:#ffffff; font-weight: 600; }
 .table td, .table th { padding: 0.5rem; }
 .card { border: 1px solid #374151; border-radius: 0.5rem; padding: 0.75rem; background: #111827; color:#e5e7eb; }
 

@@ -50,11 +50,13 @@ def generate_pdf_report(output_path: str, payload: dict, chart_image_base64: str
     areas_data = [['Area Type', 'Area (sq ft)']]
     for k, v in (payload.get('areas') or {}).items():
         areas_data.append([k, f"{v:,.0f}"])
-    areas_table = Table(areas_data, hAlign='LEFT', colWidths=[2.5*inch, 1.5*inch])
+    areas_table = Table(areas_data, hAlign='CENTER', colWidths=[2.5*inch, 1.5*inch])
     areas_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f3f4f6')),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2563eb')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER')
     ]))
     elems.append(Paragraph('Building Area Breakdown', styles['Section']))
     elems.append(areas_table)
@@ -70,34 +72,61 @@ def generate_pdf_report(output_path: str, payload: dict, chart_image_base64: str
         ['Fuel Oil #4 (gal)', f"{util.get('fuelOil4', 0):,}"],
         ['Steam (MLb)', f"{util.get('steam', 0):,}"]
     ]
-    util_table = Table(util_rows, hAlign='LEFT', colWidths=[2.5*inch, 1.5*inch])
+    util_table = Table(util_rows, hAlign='CENTER', colWidths=[2.5*inch, 1.5*inch])
     util_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f3f4f6')),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2563eb')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER')
     ]))
     elems.append(Paragraph('Annual Utility Data', styles['Section']))
     elems.append(util_table)
     elems.append(Spacer(1, 12))
 
-    # Period summary table
+    # Period summary table (transposed - years as columns)
     periods = payload.get('periods') or []
-    header = ['Year', 'Emissions (tCO2e/yr)', 'Limit (tCO2e/yr)', 'Overage (tCO2e/yr)', 'Penalty ($/yr)']
-    data = [header]
-    for p in periods:
-        data.append([
-            p.get('label', ''),
-            f"{p.get('totalEmissions', 0):.2f}",
-            '-' if p.get('totalLimit') is None else f"{p.get('totalLimit', 0):.2f}",
-            '-' if p.get('overage') is None else f"{p.get('overage', 0):.2f}",
-            '-' if p.get('penalty') is None else f"${int(round(p.get('penalty', 0))):,}"
-        ])
-    table = Table(data, hAlign='LEFT', colWidths=[1.2*inch, 1.6*inch, 1.6*inch, 1.6*inch, 1.4*inch])
-    table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f3f4f6')),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')
-    ]))
+    if periods:
+        # Create transposed table with years as columns
+        years = [p.get('label', '') for p in periods]
+        emissions = [f"{p.get('totalEmissions', 0):.2f}" for p in periods]
+        limits = ['-' if p.get('totalLimit') is None else f"{p.get('totalLimit', 0):.2f}" for p in periods]
+        overages = ['-' if p.get('overage') is None else f"{p.get('overage', 0):.2f}" for p in periods]
+        penalties = ['-' if p.get('penalty') is None else f"${int(round(p.get('penalty', 0))):,}" for p in periods]
+        
+        # Transposed data
+        transposed_data = [
+            ['Metric'] + years,
+            ['Emissions (tCO2e/yr)'] + emissions,
+            ['Limit (tCO2e/yr)'] + limits,
+            ['Overage (tCO2e/yr)'] + overages,
+            ['Penalty ($/yr)'] + penalties
+        ]
+        
+        # Calculate column widths dynamically
+        col_widths = [1.8*inch] + [1.2*inch] * len(years)
+        
+        table = Table(transposed_data, hAlign='CENTER', colWidths=col_widths)
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2563eb')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold')  # First column bold
+        ]))
+    else:
+        # Fallback to original format if no periods
+        header = ['Year', 'Emissions (tCO2e/yr)', 'Limit (tCO2e/yr)', 'Overage (tCO2e/yr)', 'Penalty ($/yr)']
+        data = [header]
+        table = Table(data, hAlign='CENTER', colWidths=[1.2*inch, 1.6*inch, 1.6*inch, 1.6*inch, 1.4*inch])
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2563eb')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER')
+        ]))
     elems.append(Paragraph('Emissions Summary', styles['Section']))
     elems.append(table)
     elems.append(Spacer(1, 16))
