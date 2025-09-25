@@ -8,9 +8,67 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // Use types from limit_factors.json (keep in sync with backend)
     const USE_TYPES = [
-        "Multifamily",
+        "Adult Education",
+        "Ambulatory Surgical Center",
+        "Automobile Dealership",
+        "Bank Branch",
+        "Bowling Alley",
+        "College/University",
+        "Convenience Store without Gas Station",
+        "Courthouse",
+        "Data Center",
+        "Distribution Center",
+        "Enclosed Mall",
+        "Financial Office",
+        "Fitness Center/Health Club/Gym",
+        "Food Sales",
+        "Food Service",
         "Hospital (General Medical & Surgical)",
-        "Office"
+        "Hotel",
+        "K-12 School",
+        "Laboratory",
+        "Library",
+        "Lifestyle Center",
+        "Mailing Center/Post Office",
+        "Manufacturing/Industrial Plant",
+        "Medical Office",
+        "Movie Theater",
+        "Multifamily Housing",
+        "Museum",
+        "Non-Refrigerated Warehouse",
+        "Office",
+        "Other - Education",
+        "Other - Entertainment & Public Assembly",
+        "Other - Mall",
+        "Other - Public Services",
+        "Other - Recreation",
+        "Other - Restaurant /Bar",
+        "Other - Services",
+        "Other - Specialty Hospital",
+        "Other-  Lodging/Residential",
+        "OtherTechnology /Science",
+        "Outpatient Rehabilitation/Physical Therapy",
+        "Parking",
+        "Performing Arts",
+        "Personal Services (Health/Beauty, Dry Cleaning, etc.)",
+        "Pre-school/Daycare",
+        "Refrigerated Warehouse",
+        "Repair Services (Vehicle, Shoe, Locksmith, etc.)",
+        "Residence Hall or Dormitory",
+        "Residential Care Facility",
+        "Restaurant",
+        "Retail Store",
+        "Self-Storage Facility",
+        "Senior Care Community",
+        "Social/Meeting Hall",
+        "Strip Mall",
+        "Supermarket /Grocery Store",
+        "Transportation Terminal/Station",
+        "Urgent Care/Clinic/Other Outpatient",
+        "Vocational School",
+        "Wholesale Club or Supercenter",
+        "Worship Facility",
+        "None"
     ];
 
     function createUseTypeRow(selected, area) {
@@ -49,11 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderUseTypesList() {
         const list = document.getElementById('use-types-list');
         list.innerHTML = '';
-        list.appendChild(createUseTypeRow(USE_TYPES[0], ''));
+        list.appendChild(createUseTypeRow('Office', ''));
     }
 
     document.getElementById('add-use-type').onclick = function() {
-        document.getElementById('use-types-list').appendChild(createUseTypeRow(USE_TYPES[0], ''));
+        document.getElementById('use-types-list').appendChild(createUseTypeRow('Office', ''));
     };
     // Ensure at least one row is visible on load
     renderUseTypesList();
