@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
         document.head.appendChild(script);
     }
-    // Use types from limit_factors.json (keep in sync with backend)
+    // Use types from limit_factors.json (keep in sync with backend) - Updated with all property types
     const USE_TYPES = [
         "Adult Education",
         "Ambulatory Surgical Center",
