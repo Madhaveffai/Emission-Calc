@@ -4,19 +4,23 @@
 /* Results layout spacing and table polish */
 .results-section { margin-bottom: 1.25rem; }
 .table { border-collapse: separate; border-spacing: 0; }
-.table th, .table td { border: 1px solid #e5e7eb; }
-.table th { background: #f3f4f6; font-weight: 600; }
+.table th, .table td { border: 1px solid #374151; }
+.table th { background: #1f2937; color:#e5e7eb; font-weight: 600; }
 .table td, .table th { padding: 0.5rem; }
-.card { border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; background: #fff; }
+.card { border: 1px solid #374151; border-radius: 0.5rem; padding: 0.75rem; background: #111827; color:#e5e7eb; }
 
 /* Dashboard polish */
 .dashboard-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 1rem; }
-.dashboard-header .title { font-size: 1.75rem; font-weight: 700; color:#111827; }
-.btn { background:#111827; color:#fff; padding:0.5rem 0.875rem; border-radius:0.375rem; }
-.btn:hover { background:#1f2937; }
+.dashboard-header .title { font-size: 1.75rem; font-weight: 700; color:#e5e7eb; }
+.btn { background:#2563eb; color:#fff; padding:0.5rem 0.875rem; border-radius:0.375rem; }
+.btn:hover { background:#1d4ed8; }
 .kpi-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1rem; margin-bottom: 1rem; }
-.kpi { border:1px solid #e5e7eb; border-radius:0.5rem; padding:0.75rem; background:#ffffff; }
-.kpi .label { font-size:0.75rem; color:#6b7280; margin-bottom:0.25rem; }
-.kpi .value { font-size:1.5rem; font-weight:700; color:#111827; }
-.kpi .sub { font-size:0.75rem; color:#6b7280; }
-.section-title { font-weight:700; color:#111827; margin: 0.75rem 0; }
+.kpi { border:1px solid #374151; border-radius:0.5rem; padding:0.75rem; background:#111827; }
+.kpi .label { font-size:0.75rem; color:#9ca3af; margin-bottom:0.25rem; }
+.kpi .value { font-size:1.5rem; font-weight:700; color:#e5e7eb; }
+.kpi .sub { font-size:0.75rem; color:#9ca3af; }
+.section-title { font-weight:700; color:#e5e7eb; margin: 0.75rem 0; }
+
+/* Form elements in dark theme */
+input, select { background:#374151; color:#e5e7eb; border-color:#4b5563; }
+select { min-width: 22rem; }
