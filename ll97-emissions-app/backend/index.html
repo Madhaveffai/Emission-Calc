@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LL97 Emissions Calculator</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-full max-w-lg bg-white border-r p-6 flex flex-col" id="sidebar-container">
+            <h1 class="text-2xl font-bold mb-6">LL97 Emissions Calculator</h1>
+            <form id="emissions-form" class="space-y-4 flex-1">
+                <div>
+                    <label class="block font-medium" for="buildingName">Building Name</label>
+                    <input class="mt-1 w-full border rounded px-3 py-2" type="text" id="buildingName" name="buildingName" required>
+                </div>
+                <div>
+                    <label class="block font-medium">Gross Floor Area by Use Type (sq ft)</label>
+                    <div id="use-types-list"></div>
+                    <button type="button" id="add-use-type" class="mt-2 px-3 py-1 bg-gray-200 rounded">+ Add Use Type</button>
+                </div>
+                <div>
+                    <label class="block font-medium">Annual Utility Usage</label>
+                    <div class="space-y-2">
+                        <input class="w-full border rounded px-3 py-2" type="number" id="electricity" name="electricity" placeholder="Electricity (kWh)" min="0">
+                        <input class="w-full border rounded px-3 py-2" type="number" id="gas" name="gas" placeholder="Gas (therms)" min="0">
+                        <input class="w-full border rounded px-3 py-2" type="number" id="fuelOil2" name="fuelOil2" placeholder="Fuel Oil #2 (gallons)" min="0">
+                        <input class="w-full border rounded px-3 py-2" type="number" id="fuelOil4" name="fuelOil4" placeholder="Fuel Oil #4 (gallons)" min="0">
+                        <input class="w-full border rounded px-3 py-2" type="number" id="steam" name="steam" placeholder="Steam (MLb)" min="0">
+                    </div>
+                </div>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700" type="submit">Calculate Emissions</button>
+            </form>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col p-10 bg-gray-50 min-h-screen">
+            <div id="results-container" class="w-full max-w-6xl mx-auto" style="display:none;">
+                <div class="dashboard-header">
+                    <div class="title">LL97 Emissions Dashboard</div>
+                    <div class="actions">
+                        <button id="back-btn" class="btn">Back</button>
+                    </div>
+                </div>
+                <div id="result"></div>
+            </div>
+        </main>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

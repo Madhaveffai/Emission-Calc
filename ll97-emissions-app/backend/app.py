@@ -4,8 +4,9 @@ import os
 from calculator import calculate_emissions
 from pdf_generator import generate_pdf_report
 
-STATIC_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '../frontend'))
-TEMPLATE_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '../templates'))
+# Use frontend files from backend directory (copied for deployment)
+STATIC_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '.'))
+TEMPLATE_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '.'))
 
 app = Flask(
     __name__,
