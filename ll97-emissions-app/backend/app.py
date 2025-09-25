@@ -17,10 +17,13 @@ CORS(app)
 
 @app.route('/')
 def index():
+    print(f"Serving from STATIC_FOLDER: {STATIC_FOLDER}")
+    print(f"Files in static folder: {os.listdir(STATIC_FOLDER)}")
     return send_from_directory(STATIC_FOLDER, 'index.html')
 
 @app.route('/<path:path>')
 def static_proxy(path):
+    print(f"Serving static file: {path} from {STATIC_FOLDER}")
     return send_from_directory(STATIC_FOLDER, path)
 
 @app.route('/calculate', methods=['POST'])

@@ -1,4 +1,5 @@
 // Add Chart.js via CDN if not already present
+// Cache bust: All property types loaded - v2.0
 document.addEventListener('DOMContentLoaded', function() {
     if (!document.getElementById('chartjs-cdn')) {
         const script = document.createElement('script');
