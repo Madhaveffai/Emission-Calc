@@ -297,7 +297,6 @@ function renderResults(result) {
                         pointRadius: 0,
                         stepped: 'after',
                         order: 0,
-                        borderDash: [6, 4],
                         clip: false
                     }
                 ]
